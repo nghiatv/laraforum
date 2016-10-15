@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','confirmation_code','confirmed','avatar_link','facebook_id'
+        'name', 'email', 'password','confirmation_code','confirmed','avatar_link','facebook_id', 'role'
     ];
 
     /**
@@ -31,7 +31,7 @@ class User extends Authenticatable
     }
 
 
-    public function isAdmin(){
-        return $this->role == 'admin' ? true : false;
+    public function hasRole($role){
+      return  $this->role === $role ? true : false;
     }
 }

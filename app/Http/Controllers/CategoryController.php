@@ -25,7 +25,8 @@ class CategoryController extends Controller
     public function index()
     {
         //
-        return view('categories.list');
+        $data = Category::all();
+        return view('categories.list', compact('data'));
     }
 
     /**
@@ -63,7 +64,7 @@ class CategoryController extends Controller
         if ($validation->fails()) {
             Alert::error($validation->getMessageBag()->all(), 'Oops') ->persistent('Close');
 
-            return redirect()->back();
+            return redirect()->back()->withInput();
         }
 
         $category = new Category();
@@ -71,8 +72,21 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->slug = str_slug($request->name);
         $category->description = $request->description;
+
+        if ($request->file('banner')) {
+            $extension = $request->file('banner')->getClientOriginalExtension();
+
+            $filename = uniqid() . '_banner.' . $extension;
+
+
+            if ($request->file('banner')->move('img/', $filename)) {
+                $category->image = url('img/' . $filename);
+            }
+        }
+
         $category->save();
         alert('success', 'Taọ mới thành công category!!');
+//        return redirect('/admin/categories/'.$category->id);
         return redirect()->route('categories.create');
 
 
@@ -98,6 +112,10 @@ class CategoryController extends Controller
     public function edit($id)
     {
         //
+
+        $data = Category::find($id);
+
+        return view('categories.edit', compact('data'));
     }
 
     /**
@@ -109,7 +127,42 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $rules = [
+            'name' => 'required|min:3',
+            'description' => 'required|min:20'
+        ];
+        $messages = [
+            '*.required' => ':attribute là bắt buộc',
+            '*.min' => ':attribute phải ít nhất :min kí tự'
+        ];
+
+        $validation = Validator::make($request->all(), $rules, $messages);
+
+        // Neu loi thi tra ve loi cho nguoi dung
+        if ($validation->fails()) {
+            Alert::error($validation->getMessageBag()->all(), 'Oops') ->persistent('Close');
+
+            return redirect()->back();
+        }
+
+        $category = Category::find($id);
+
+        $category->name = $request->name;
+        $category->description = $request->description;
+        if ($request->file('banner')) {
+            $extension = $request->file('banner')->getClientOriginalExtension();
+
+            $filename = uniqid() . '_banner.' . $extension;
+
+
+            if ($request->file('banner')->move('img/', $filename)) {
+                $category->image = url('img/' . $filename);
+            }
+        }
+        $category->save();
+
+        Alert::success('Thành công','Sửa category thành công');
+        return redirect()->back();
     }
 
     /**
@@ -121,5 +174,12 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
+
+        $category = Category::find($id);
+
+        $category->delete();
+
+        alert()->success('Thành công!!','Xóa thành công category');
+        return redirect()->back();
     }
 }

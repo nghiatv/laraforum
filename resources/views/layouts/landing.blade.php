@@ -259,7 +259,7 @@ Landing page based on Pratt: http://blacktie.co/demo/pratt/
         <div class="col-lg-7">
             <h3>{{ trans('adminlte_lang::message.dropus') }}</h3>
             <br>
-            <form role="form" action="{{url('/ticket')}}" method="post" enctype="plain">
+            <form role="form" action="{{ route('tickets.store') }}" method="post" enctype="plain">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="name1">{{ trans('adminlte_lang::message.yourname') }}</label>

@@ -98,6 +98,7 @@ class AuthController extends Controller
             $user->facebook_id = $data->id; // cap nhat facebook id cho ho
             $user->save();
             Auth::login($user); // dang nhap cho user do
+            alert()->success('Bạn đã đăng nhập thành công', 'Welcome!');
             return redirect($this->redirectTo);
         } else {  // neu chua ton ai user co email nhu vay
             $user = User::where('facebook_id', $data->id)->first(); // tim kiem user co facebook_id nay

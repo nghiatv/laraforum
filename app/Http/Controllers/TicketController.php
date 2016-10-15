@@ -6,16 +6,18 @@ use Illuminate\Http\Request;
 use App\Ticket;
 use App\Http\Requests;
 use App\Http\Requests\TicketRequest;
+use Illuminate\Support\Facades\Auth;
 class TicketController extends Controller
 {
     //
 
     public function __construct()
     {
-        $this->middleware('auth', ['except' => 'create']);
+        $this->middleware(['auth','role:admin'], ['except' => 'store']);
+//        $this->middleware('role:admin',)
 
     }
-    public function create(TicketRequest $request){
+    public function store(TicketRequest $request){
 
 
         $ticket = new Ticket();
@@ -31,5 +33,12 @@ class TicketController extends Controller
 
 
 
+    }
+
+    public function index(){
+
+
+        $data = Ticket::all();
+        return view('tickets.list',compact('data'));
     }
 }

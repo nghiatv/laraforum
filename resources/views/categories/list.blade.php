@@ -11,7 +11,7 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">Responsive Hover Table</h3>
+                    <h3 class="box-title">Category</h3>
 
                     <div class="box-tools">
                         <div class="input-group input-group-sm" style="width: 150px;">
@@ -26,46 +26,76 @@
                 <!-- /.box-header -->
                 <div class="box-body table-responsive no-padding">
                     <table class="table table-hover">
-                        <tbody><tr>
+                        <tbody>
+                        <tr>
                             <th>ID</th>
-                            <th>User</th>
-                            <th>Date</th>
-                            <th>Status</th>
-                            <th>Reason</th>
+                            <th>Name</th>
+                            <th>Slug</th>
+                            <th>Description</th>
+                            <th>Button</th>
                         </tr>
-                        <tr>
-                            <td>183</td>
-                            <td>John Doe</td>
-                            <td>11-7-2014</td>
-                            <td><span class="label label-success">Approved</span></td>
-                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                        </tr>
-                        <tr>
-                            <td>219</td>
-                            <td>Alexander Pierce</td>
-                            <td>11-7-2014</td>
-                            <td><span class="label label-warning">Pending</span></td>
-                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                        </tr>
-                        <tr>
-                            <td>657</td>
-                            <td>Bob Doe</td>
-                            <td>11-7-2014</td>
-                            <td><span class="label label-primary">Approved</span></td>
-                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                        </tr>
-                        <tr>
-                            <td>175</td>
-                            <td>Mike Doe</td>
-                            <td>11-7-2014</td>
-                            <td><span class="label label-danger">Denied</span></td>
-                            <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                        </tr>
-                        </tbody></table>
+
+
+                        @foreach($data as $item)
+                            <tr>
+                                <td>{{ $item->id }}</td>
+                                <td><a href="{{ url('/admin/categories/'.$item->id.'/edit') }}"> {{ $item->name }}</a> </td>
+                                <td>{{ $item->slug }}</td>
+                                <td>{{ $item->description }}</td>
+                                <td>
+                                    <button onclick="showModalDelete({{$item->id }})" class="btn btn-flat btn-danger"><i
+                                                class="fa fa-trash"></i> Delete
+                                    </button>
+
+                                    <form id="delete-{{ $item->id }}" action="{{ url('/admin/categories/'.$item->id) }}"
+                                          method="POST">
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
+                                    </form>
+
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
                 </div>
                 <!-- /.box-body -->
             </div>
             <!-- /.box -->
         </div>
     </div>
-    @endsection
+
+    <div class="modal fade modal-danger" id="delete-modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Xóa</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Xác nhận xóa category&hellip;</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="delete-button" class="btn btn-delete"><i class="fa fa-trash"></i> Delete
+                    </button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+@endsection
+
+@push('scripts')
+<script type="text/javascript">
+
+    function showModalDelete(id) {
+
+        $('#delete-button').attr('onclick', "$('#delete-" + id + "').submit()");
+        $('#delete-modal').modal('show');
+
+    }
+
+</script>
+@endpush
