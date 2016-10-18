@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="nghia blog nhe">
     <meta name="author" content="nghia">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Blog - @yield('title','Trang chu')</title>
 
     <!-- Bootstrap Core CSS -->
@@ -20,6 +20,7 @@
     <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
+    <link href="{{ asset('/plugins/sweetalert/dist/sweetalert.css') }}" rel="stylesheet" type="text/css">
     @stack('links')
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->

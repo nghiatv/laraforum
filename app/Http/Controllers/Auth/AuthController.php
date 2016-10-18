@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use Illuminate\Foundation\Auth\RedirectsUsers;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -22,14 +23,14 @@ class AuthController extends Controller
     |
     */
 
-    use  ThrottlesLogins;
+    use  ThrottlesLogins, RedirectsUsers;
 
     /**
      * Where to redirect users after login / registration.
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new authentication controller instance.
@@ -116,7 +117,7 @@ class AuthController extends Controller
 
                 Auth::login($user);
                 alert()->success('Bạn đã đăng nhập thành công', 'Welcome!');
-                return redirect($this->redirectTo );
+                return redirect()->intended($this->redirectPath());
             }
 
 

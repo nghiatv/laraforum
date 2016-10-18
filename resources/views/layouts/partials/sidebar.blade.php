@@ -33,43 +33,46 @@
             <!-- /.search form -->
 
             <!-- Sidebar Menu -->
-            <ul class="sidebar-menu">
-                <li class="header">{{ trans('adminlte_lang::message.header') }}</li>
-                <!-- Optionally, you can add icons to the links -->
-                <li class="active"><a href="{{ url('home') }}"><i class='fa fa-link'></i>
-                        <span>{{ trans('adminlte_lang::message.home') }}</span></a></li>
-                <li><a href="#"><i class='fa fa-link'></i>
-                        <span>{{ trans('adminlte_lang::message.anotherlink') }}</span></a></li>
-                <li class="treeview">
-                    <a href="{{ url('/admin/categories') }}"><i class='fa fa-link'></i>
-                        <span>{{ trans('Categories') }}</span> <i class="fa fa-angle-left pull-right"></i></a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{ url('/admin/categories/create') }}">{{ trans('Tạo mới category') }}</a></li>
-                        <li><a href="{{ url('/admin/categories') }}">{{ trans('Danh sách category') }}</a></li>
-                        {{--<li><a href="{{ url('/admin/categories') }}">{{ trans('adminlte_lang::message.linklevel2') }}</a></li>--}}
-                    </ul>
-                </li>
-                <li class="treeview">
-                    <a href="{{ url('/admin/posts') }}"><i class='fa fa-link'></i> <span>{{ trans('Posts') }}</span> <i
-                                class="fa fa-angle-left pull-right"></i></a>
-                    <ul class="treeview-menu">
-                        <li><a href="{{ url('/admin/posts/create') }}">{{ trans('Tạo mới post') }}</a></li>
-                        <li><a href="{{ url('/admin/posts') }}">{{ trans('Danh sách post') }}</a></li>
-                        {{--<li><a href="{{ url('/admin/categories') }}">{{ trans('adminlte_lang::message.linklevel2') }}</a></li>--}}
-                    </ul>
-                </li>
-
-                @if(Auth::user()->hasRole('admin'))
+           @if(!Auth::guest())
+                <ul class="sidebar-menu">
+                    <li class="header">{{ trans('adminlte_lang::message.header') }}</li>
+                    <!-- Optionally, you can add icons to the links -->
+                    <li class="active"><a href="{{ url('home') }}"><i class='fa fa-link'></i>
+                            <span>{{ trans('adminlte_lang::message.home') }}</span></a></li>
+                    <li><a href="#"><i class='fa fa-link'></i>
+                            <span>{{ trans('adminlte_lang::message.anotherlink') }}</span></a></li>
                     <li class="treeview">
-                        <a href="{{ url('/admin/tickets') }}"><i class='fa fa-link'></i>
-                            <span>{{ trans('Tickets') }}</span> <i class="fa fa-angle-left pull-right"></i></a>
+                        <a href="{{ url('/admin/categories') }}"><i class='fa fa-link'></i>
+                            <span>{{ trans('Categories') }}</span> <i class="fa fa-angle-left pull-right"></i></a>
                         <ul class="treeview-menu">
-                            <li><a href="{{ url('/admin/tickets') }}">{{ trans('Danh sách Phản hồi') }}</a></li>
+                            <li><a href="{{ url('/admin/categories/create') }}">{{ trans('Tạo mới category') }}</a></li>
+                            <li><a href="{{ url('/admin/categories') }}">{{ trans('Danh sách category') }}</a></li>
                             {{--<li><a href="{{ url('/admin/categories') }}">{{ trans('adminlte_lang::message.linklevel2') }}</a></li>--}}
                         </ul>
                     </li>
-                @endif
-            </ul><!-- /.sidebar-menu -->
+                    <li class="treeview">
+                        <a href="{{ url('/admin/posts') }}"><i class='fa fa-link'></i> <span>{{ trans('Posts') }}</span> <i
+                                    class="fa fa-angle-left pull-right"></i></a>
+                        <ul class="treeview-menu">
+                            <li><a href="{{ url('/admin/posts/create') }}">{{ trans('Tạo mới post') }}</a></li>
+                            <li><a href="{{ url('/admin/posts') }}">{{ trans('Danh sách post') }}</a></li>
+                            {{--<li><a href="{{ url('/admin/categories') }}">{{ trans('adminlte_lang::message.linklevel2') }}</a></li>--}}
+                        </ul>
+                    </li>
+
+                    @if(Auth::user()->hasRole('admin'))
+                        <li class="treeview">
+                            <a href="{{ url('/admin/tickets') }}"><i class='fa fa-link'></i>
+                                <span>{{ trans('Tickets') }}</span> <i class="fa fa-angle-left pull-right"></i></a>
+                            <ul class="treeview-menu">
+                                <li><a href="{{ url('/admin/tickets') }}">{{ trans('Danh sách Phản hồi') }}</a></li>
+                                {{--<li><a href="{{ url('/admin/categories') }}">{{ trans('adminlte_lang::message.linklevel2') }}</a></li>--}}
+                            </ul>
+                        </li>
+                    @endif
+                </ul><!-- /.sidebar-menu -->
+
+            @endif
     </section>
     <!-- /.sidebar -->
 </aside>

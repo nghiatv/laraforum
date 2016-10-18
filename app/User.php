@@ -30,6 +30,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Post','author_id');
     }
 
+    public function comments()
+    {
+        return $this->hasMany('App\Comment','from_user');
+    }
 
     public function hasRole($role){
       return  $this->role === $role ? true : false;

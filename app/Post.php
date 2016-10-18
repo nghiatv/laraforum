@@ -13,7 +13,7 @@ class Post extends Model
         return $this->belongsTo('App\User','author_id','id');
     }
     public function comments(){
-        return $this->hasMany('App\Comment');
+        return $this->hasMany('App\Comment','on_post');
     }
     public function category(){
         return $this->belongsTo('App\Category');
