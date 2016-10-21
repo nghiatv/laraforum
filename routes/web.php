@@ -56,3 +56,9 @@ Route::get('categories/{id}', 'SiteController@showCategory');
 Route::resource('/post/{post}/comment', 'CommentController', ['only' => [
     'store', 'index'
 ]]);
+
+
+
+// log viewer
+
+Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');

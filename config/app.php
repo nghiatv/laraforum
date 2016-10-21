@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Ho_Chi_Minh',
 
     /*
     |--------------------------------------------------------------------------
@@ -184,6 +184,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         UxWeb\SweetAlert\SweetAlertServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
 
 
 
@@ -237,7 +239,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Alert' => UxWeb\SweetAlert\SweetAlert::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];

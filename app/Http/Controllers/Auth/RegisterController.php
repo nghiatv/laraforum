@@ -52,6 +52,7 @@ class RegisterController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
+            'terms' => 'required'
         ]);
     }
 
@@ -84,7 +85,7 @@ class RegisterController extends Controller
         $user->confirmation_code = null;
         $user->confirmed = 1;
         $user->save();
-        Auth::login($user);
+        $this->guard()->login($user);
         alert()->success('Success!', 'Xác thực thành công!');
         return redirect('/');
     }

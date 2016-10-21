@@ -16,7 +16,6 @@ class SiteController extends Controller
     }
     public function show($id){
         $data = Post::find($id);
-
         return view('sites.detail',compact('data'));
     }
 

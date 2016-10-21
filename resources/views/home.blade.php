@@ -40,7 +40,7 @@
                                 <!-- /.info-box -->
                             </div>
                             <!-- /.col -->
-
+       
                             <!-- fix for small devices only -->
                             <div class="clearfix visible-sm-block"></div>
 
